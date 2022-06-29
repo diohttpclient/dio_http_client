@@ -41,6 +41,7 @@ abstract class BaseHttpClient extends BaseDataSource<BaseRequest> {
     }
   }
 
+  @override
   Future<Either<ErrorResponse, SuccessResponse<T>>> retrieveData<T>(
     BaseRequest request,
   ) async {

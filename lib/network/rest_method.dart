@@ -3,11 +3,11 @@ import '../model/base_enum.dart';
 class RestMethod extends BaseEnum<String> {
   const RestMethod._(String rawValue) : super(rawValue);
 
-  static RestMethod get = RestMethod._('GET');
-  static RestMethod post = RestMethod._('POST');
-  static RestMethod patch = RestMethod._('PATCH');
-  static RestMethod put = RestMethod._('PUT');
-  static RestMethod delete = RestMethod._('DELETE');
+  static RestMethod get = const RestMethod._('GET');
+  static RestMethod post = const RestMethod._('POST');
+  static RestMethod patch = const RestMethod._('PATCH');
+  static RestMethod put = const RestMethod._('PUT');
+  static RestMethod delete = const RestMethod._('DELETE');
 
   @override
   bool operator ==(Object other) {
