@@ -1,4 +1,4 @@
 class HttpConstants {
-  static int requestSendTimeout = 3600;
-  static int requestReceiveTimeout = 3600;
+  static int requestSendTimeout = 36000;
+  static int requestReceiveTimeout = 36000;
 }
