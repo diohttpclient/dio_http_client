@@ -10,9 +10,11 @@ class AppHttpClient extends BaseHttpClient {
   final bool debug;
   final BaseOptions? baseOptions;
 
-  AppHttpClient(
-      {this.baseOptions, List<Interceptor>? interceptors, this.debug = true})
-      : super(
+  AppHttpClient({
+    this.baseOptions,
+    List<Interceptor>? interceptors,
+    this.debug = true,
+  }) : super(
           interceptors: interceptors ??
               [ErrorInterceptor(), if (debug) LoggingInterceptor()],
           useLogInterceptor: false,
@@ -37,13 +39,13 @@ class AppHttpClient extends BaseHttpClient {
               res.body.errorCode ?? "");
         }
       } catch (_) {
-        return ErrorResponse(
-            e.response?.statusCode ?? 999, e.response?.statusMessage ?? '', "");
+        return ErrorResponse(e.response?.statusCode ?? 999,
+            e.response?.statusMessage ?? e.message, "");
       }
     }
 
-    return ErrorResponse(
-        e.response?.statusCode ?? 999, e.response?.statusMessage ?? '', "");
+    return ErrorResponse(e.response?.statusCode ?? 999,
+        e.response?.statusMessage ?? e.message, "");
   }
 
   @override

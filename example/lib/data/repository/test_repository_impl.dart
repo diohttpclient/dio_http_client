@@ -20,9 +20,27 @@ class TestRepositoryImpl extends TestRepository {
 
   @override
   Future<Either<ErrorResponse, SuccessResponse<Map<String, dynamic>>>>
-      testDelete() async {
-    final response =
-        await dataSource.retrieveData<TestDeleteResponse>(TestDeleteRequest());
+      testDelete({bool? cached, bool? forceRefresh}) async {
+    final response = await dataSource.retrieveData<TestDeleteResponse>(
+      TestDeleteRequest(),
+      cached: cached,
+      forceRefresh: forceRefresh,
+    );
+
+    return response.fold(
+        (error) => Left(error),
+        (success) => Right(
+            SuccessResponse(success.statusCode, success.data.body ?? {})));
+  }
+
+  @override
+  Future<Either<ErrorResponse, SuccessResponse<Map<String, dynamic>>>> testGet(
+      {bool? cached, bool? forceRefresh}) async {
+    final response = await dataSource.retrieveData<TestGetResponse>(
+      TestGetRequest(),
+      cached: cached,
+      forceRefresh: forceRefresh,
+    );
 
     return response.fold(
         (error) => Left(error),
@@ -32,9 +50,12 @@ class TestRepositoryImpl extends TestRepository {
 
   @override
   Future<Either<ErrorResponse, SuccessResponse<Map<String, dynamic>>>>
-      testGet() async {
-    final response =
-        await dataSource.retrieveData<TestGetResponse>(TestGetRequest());
+      testPatch({bool? cached, bool? forceRefresh}) async {
+    final response = await dataSource.retrieveData<TestPatchResponse>(
+      TestPatchRequest(),
+      cached: cached,
+      forceRefresh: forceRefresh,
+    );
 
     return response.fold(
         (error) => Left(error),
@@ -43,10 +64,13 @@ class TestRepositoryImpl extends TestRepository {
   }
 
   @override
-  Future<Either<ErrorResponse, SuccessResponse<Map<String, dynamic>>>>
-      testPatch() async {
-    final response =
-        await dataSource.retrieveData<TestPatchResponse>(TestPatchRequest());
+  Future<Either<ErrorResponse, SuccessResponse<Map<String, dynamic>>>> testPost(
+      {bool? cached, bool? forceRefresh}) async {
+    final response = await dataSource.retrieveData<TestPostResponse>(
+      TestPostRequest(),
+      cached: cached,
+      forceRefresh: forceRefresh,
+    );
 
     return response.fold(
         (error) => Left(error),
@@ -55,22 +79,13 @@ class TestRepositoryImpl extends TestRepository {
   }
 
   @override
-  Future<Either<ErrorResponse, SuccessResponse<Map<String, dynamic>>>>
-      testPost() async {
-    final response =
-        await dataSource.retrieveData<TestPostResponse>(TestPostRequest());
-
-    return response.fold(
-        (error) => Left(error),
-        (success) => Right(
-            SuccessResponse(success.statusCode, success.data.body ?? {})));
-  }
-
-  @override
-  Future<Either<ErrorResponse, SuccessResponse<Map<String, dynamic>>>>
-      testPut() async {
-    final response =
-        await dataSource.retrieveData<TestPutResponse>(TestPutRequest());
+  Future<Either<ErrorResponse, SuccessResponse<Map<String, dynamic>>>> testPut(
+      {bool? cached, bool? forceRefresh}) async {
+    final response = await dataSource.retrieveData<TestPutResponse>(
+      TestPutRequest(),
+      cached: cached,
+      forceRefresh: forceRefresh,
+    );
 
     return response.fold(
         (error) => Left(error),

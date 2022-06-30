@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:dio_http_client/network/success_response.dart';
 
 import '../source/base_data_source.dart';
@@ -13,12 +14,9 @@ abstract class BaseHttpClient extends BaseDataSource<BaseRequest> {
     BaseOptions? baseOptions,
     List<Interceptor>? interceptors,
     bool useLogInterceptor = true,
+    bool cached = false,
   }) {
-    setup(
-      baseOptions,
-      interceptors,
-      useLogInterceptor,
-    );
+    setup(baseOptions, interceptors, useLogInterceptor);
   }
 
   Interceptors get interceptors => _dioClient.interceptors;
@@ -43,8 +41,10 @@ abstract class BaseHttpClient extends BaseDataSource<BaseRequest> {
 
   @override
   Future<Either<ErrorResponse, SuccessResponse<T>>> retrieveData<T>(
-    BaseRequest request,
-  ) async {
+      BaseRequest request,
+      {bool? cached,
+      bool? forceRefresh,
+      Duration? duration}) async {
     try {
       Options options = Options(
         headers: request.headers,
@@ -58,7 +58,13 @@ abstract class BaseHttpClient extends BaseDataSource<BaseRequest> {
       Response dioResponse = await _dioClient.request(
         request.completeUrl,
         data: request.body,
-        options: options,
+        options: cached ?? false
+            ? buildCacheOptions(
+                duration ?? const Duration(days: 7),
+                forceRefresh: forceRefresh,
+                options: options,
+              )
+            : options,
         queryParameters: request.queryParameters,
       );
 

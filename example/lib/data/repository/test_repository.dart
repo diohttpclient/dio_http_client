@@ -7,14 +7,14 @@ import 'package:dio_http_client/repository/remote_repository.dart';
 abstract class TestRepository extends RemoteRepository {
   TestRepository(AppHttpClient remoteDataSource) : super(remoteDataSource);
 
+  Future<Either<ErrorResponse, SuccessResponse<Map<String, dynamic>>>> testGet(
+      {bool? cached, bool? forceRefresh});
   Future<Either<ErrorResponse, SuccessResponse<Map<String, dynamic>>>>
-      testGet();
+      testDelete({bool? cached, bool? forceRefresh});
   Future<Either<ErrorResponse, SuccessResponse<Map<String, dynamic>>>>
-      testDelete();
-  Future<Either<ErrorResponse, SuccessResponse<Map<String, dynamic>>>>
-      testPatch();
-  Future<Either<ErrorResponse, SuccessResponse<Map<String, dynamic>>>>
-      testPost();
-  Future<Either<ErrorResponse, SuccessResponse<Map<String, dynamic>>>>
-      testPut();
+      testPatch({bool? cached, bool? forceRefresh});
+  Future<Either<ErrorResponse, SuccessResponse<Map<String, dynamic>>>> testPost(
+      {bool? cached, bool? forceRefresh});
+  Future<Either<ErrorResponse, SuccessResponse<Map<String, dynamic>>>> testPut(
+      {bool? cached, bool? forceRefresh});
 }

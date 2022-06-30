@@ -1,6 +1,9 @@
+import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:dio_http_client/network/app_http_client.dart';
+import 'package:dio_http_client/network/logging_interceptor.dart';
 import 'package:flutter/material.dart';
 
+import 'costants.dart';
 import 'data/repository/test_repository.dart';
 import 'data/repository/test_repository_impl.dart';
 
@@ -22,7 +25,10 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    client = AppHttpClient(debug: true);
+    client = AppHttpClient(debug: true, interceptors: [
+      LoggingInterceptor(),
+      DioCacheManager(CacheConfig(baseUrl: Constants.domain)).interceptor
+    ]);
     testRepository = TestRepositoryImpl(client);
   }
 
@@ -33,7 +39,7 @@ class _MyAppState extends State<MyApp> {
   String putMessage = '';
 
   void _testGet() async {
-    final response = await testRepository.testGet();
+    final response = await testRepository.testGet(cached: true);
     setState(() {
       response.fold((l) => getMessage = l.errorMessage,
           (r) => getMessage = r.data.toString());
