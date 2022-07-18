@@ -9,13 +9,16 @@ import 'error_response.dart';
 
 abstract class BaseHttpClient extends BaseDataSource<BaseRequest> {
   late Dio _dioClient;
+  int? requestSendTimeout;
+  int? requestReceiveTimeout;
 
-  BaseHttpClient({
-    BaseOptions? baseOptions,
-    List<Interceptor>? interceptors,
-    bool useLogInterceptor = true,
-    bool cached = false,
-  }) {
+  BaseHttpClient(
+      {BaseOptions? baseOptions,
+      List<Interceptor>? interceptors,
+      bool useLogInterceptor = true,
+      bool cached = false,
+      this.requestSendTimeout,
+      this.requestReceiveTimeout}) {
     setup(baseOptions, interceptors, useLogInterceptor);
   }
 
@@ -50,8 +53,8 @@ abstract class BaseHttpClient extends BaseDataSource<BaseRequest> {
         headers: request.headers,
         method: request.method.rawValue,
         receiveDataWhenStatusError: true,
-        receiveTimeout: request.receiveTimeout,
-        sendTimeout: request.sendTimeout,
+        receiveTimeout: request.receiveTimeout ?? requestReceiveTimeout,
+        sendTimeout: request.sendTimeout ?? requestSendTimeout,
         responseType: request.responseType,
       );
 

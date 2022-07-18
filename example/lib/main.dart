@@ -1,6 +1,7 @@
 import 'package:dio_http_cache/dio_http_cache.dart';
+import 'package:dio_http_client/interceptors/error_interceptor.dart';
+import 'package:dio_http_client/interceptors/logging_interceptor.dart';
 import 'package:dio_http_client/network/app_http_client.dart';
-import 'package:dio_http_client/network/logging_interceptor.dart';
 import 'package:flutter/material.dart';
 
 import 'costants.dart';
@@ -25,10 +26,15 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    client = AppHttpClient(debug: true, interceptors: [
-      LoggingInterceptor(),
-      DioCacheManager(CacheConfig(baseUrl: Constants.domain)).interceptor
-    ]);
+    client = AppHttpClient(
+        debug: true,
+        interceptors: [
+          LoggingInterceptor(),
+          ErrorInterceptor(),
+          DioCacheManager(CacheConfig(baseUrl: Constants.domain)).interceptor
+        ],
+        requestReceiveTimeout: 3600,
+        requestSendTimeout: 3600);
     testRepository = TestRepositoryImpl(client);
   }
 

@@ -24,9 +24,9 @@ abstract class BaseRequest {
 
   String get completeUrl => '$baseUrl/$endPoint';
 
-  int get receiveTimeout => HttpConstants.requestReceiveTimeout;
+  int? get receiveTimeout => null;
 
-  int get sendTimeout => HttpConstants.requestSendTimeout;
+  int? get sendTimeout => null;
 
   BaseRequest({
     required this.baseUrl,
