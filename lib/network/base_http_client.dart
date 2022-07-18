@@ -60,7 +60,7 @@ abstract class BaseHttpClient extends BaseDataSource<BaseRequest> {
 
       Response dioResponse = await _dioClient.request(
         request.completeUrl,
-        data: request.body,
+        data: request.formData ?? request.body,
         options: cached ?? false
             ? buildCacheOptions(
                 duration ?? const Duration(days: 7),

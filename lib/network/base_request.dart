@@ -20,6 +20,8 @@ abstract class BaseRequest {
 
   Map<String, dynamic> get queryParameters => {};
 
+  FormData? get formData => null;
+
   ResponseType get responseType => ResponseType.json;
 
   String get completeUrl => '$baseUrl/$endPoint';

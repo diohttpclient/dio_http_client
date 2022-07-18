@@ -24,13 +24,4 @@ abstract class ApiRequest extends BaseRequest {
           method: method,
           decoder: decoder,
         );
-
-  @override
-  Map<String, dynamic> get body => method != RestMethod.get
-      ? {
-          'token': token,
-          'accountMail': userEmail,
-          'userEmail': userEmail,
-        }
-      : {};
 }
