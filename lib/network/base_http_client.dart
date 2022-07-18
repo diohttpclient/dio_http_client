@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:dio_http_client/network/success_response.dart';
+import 'package:flutter/foundation.dart';
 
 import '../source/base_data_source.dart';
 import 'base_request.dart';
@@ -61,7 +62,12 @@ abstract class BaseHttpClient extends BaseDataSource<BaseRequest> {
       Response dioResponse = await _dioClient.request(
         request.completeUrl,
         data: request.formData ?? request.body,
-        options: cached ?? false
+        options: [
+                  TargetPlatform.iOS,
+                  TargetPlatform.android,
+                  TargetPlatform.macOS,
+                ].contains(defaultTargetPlatform) &&
+                (cached ?? false)
             ? buildCacheOptions(
                 duration ?? const Duration(days: 7),
                 forceRefresh: forceRefresh,

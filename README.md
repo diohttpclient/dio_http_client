@@ -200,6 +200,8 @@ class TestRepositoryImpl extends TestRepository { //extends abstract repository
 ```
 
 ### Cache
+Available only for Android, Ios and MacOs
+
 For further management of your app cache, consult [dio_http_cache]
 
 ## License
