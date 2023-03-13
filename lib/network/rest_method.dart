@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_overrides
+
 import '../model/base_enum.dart';
 
 class RestMethod extends BaseEnum<String> {

@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 
-import '../costants.dart';
 import 'rest_method.dart';
 
 abstract class BaseRequest {
