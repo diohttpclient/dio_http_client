@@ -1,5 +1,5 @@
 name: dio_http_client
-description: A new Flutter plugin project.
+description: Advanced wrapper for https://pub.dev/packages/dio
 version: 0.0.1
 homepage: https://github.com/diohttpclient/dio_http_client
 
