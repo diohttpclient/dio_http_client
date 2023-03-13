@@ -1,6 +1,6 @@
 # dio_http_client
 
-Advanced client for [dio]
+Advanced wrapper for [dio]
 
 This library currently supports also Authentication token and cache system with [dio_http_cache]
 
