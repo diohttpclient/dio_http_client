@@ -8,8 +8,11 @@ class TestGetRequest extends ApiRequest {
   TestGetRequest()
       : super(
             baseUrl: Constants.domain,
-            endPoint: "${Constants.getEndpoint}?key=value",
+            endPoint: Constants.getEndpoint,
             method: RestMethod.get,
             decoder: (data) =>
                 TestGetResponse.fromMap(Map<String, dynamic>.from(data)));
+
+  @override
+  Map<String, dynamic> get queryParameters => {"key": "value"};
 }

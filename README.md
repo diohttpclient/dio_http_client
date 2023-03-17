@@ -8,13 +8,13 @@ This library currently supports also Authentication token and cache system with 
 This dependency needs also [dio_http_cache] and [dartz] to work. 
 ```yaml
 dependencies:
-  dio: ^4.0.x  #latest version
+  dio: ^4.0.6
   dio_http_client: ^0.0.x #latest version
-  dio_http_cache: ^0.3.x #latest version
+  dio_http_cache: ^0.3.0 
   dartz: ^0.10.x #latest version
 ```
 ## Data Structure
-We advise using a structure like the following
+We advise using a structure like the following. You can use [dio_http_mason] package to autogenerate this structure
 ```
 data/
 |-request/
@@ -34,10 +34,13 @@ class TestGetRequest extends ApiRequest {
   TestGetRequest()
       : super(
             baseUrl: Constants.domain, //Your domain
-            endPoint: "${Constants.getEndpoint}?key=value", //Your endpoint
+            endPoint: Constants.getEndpoint, //Your endpoint
             method: RestMethod.get, //Request method
             decoder: (data) =>
-                TestGetResponse.fromMap(Map<String, dynamic>.from(data))); //Decoder of the response
+                TestGetResponse.fromMap(Map<String, dynamic>.from(data))); //Decoder of the response body
+  
+  @override
+  Map<String, dynamic> get queryParameters => {"key": "value"};
 }
 ```
 #### TestGetResponse
@@ -208,7 +211,7 @@ For further management of your app cache, consult [dio_http_cache]
 
 MIT License
 
-Copyright (c) 2022 diohttpclient@gmail.com
+Copyright (c) 2023 diohttpclient@gmail.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -230,5 +233,6 @@ SOFTWARE.
 
 [dio]: <https://pub.dev/packages/dio> 
 [dio_http_cache]: <https://pub.dev/packages/dio_http_cache>
+[dio_http_mason]: <https://github.com/MatteoAntolini/dio_http_mason>
 [dartz]: <https://pub.dev/packages/dartz>
 [get_it]: <https://pub.dev/packages/get_it>
